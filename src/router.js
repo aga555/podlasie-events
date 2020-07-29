@@ -21,6 +21,8 @@ export const routers = [
         name: 'events',
         component: Events
     },
+
+
     {
         path: '/createEvent',
         name: 'createEvent',
