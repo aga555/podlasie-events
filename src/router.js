@@ -3,6 +3,9 @@ import Signup from "@/components/user/Signup";
 import Events from "@/components/events/Events";
 import CreateEvent from "@/components/events/CreateEvent";
 import Profile from "@/components/user/Profile";
+import Signin from "@/components/user/Signin";
+
+
 
 export const routers = [
     {
@@ -12,8 +15,14 @@ export const routers = [
     },
     {
         path: '/signup',
-        name: 'signup',
+        name: 'signUp',
         component: Signup
+    },
+
+    {
+        path: '/signin',
+        name: 'signIn',
+        component: Signin
     },
 
     {
@@ -34,5 +43,6 @@ export const routers = [
         component: Profile
     },
 ]
+
 
 

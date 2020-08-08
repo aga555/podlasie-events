@@ -6,9 +6,12 @@ import '@mdi/font/css/materialdesignicons.css'
 import vuetify from './plugins/vuetify';
 import VueRouter from "vue-router";
 import {routers} from "@/router";
+import Vuetify from "vuetify";
 
 Vue.config.productionTip = false
 
+Vue.use(VueRouter);
+Vue.use(Vuetify)
 
 const router = new VueRouter({
 

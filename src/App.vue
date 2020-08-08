@@ -10,13 +10,35 @@
             >
                 <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-                <v-toolbar-title>Podlasie extra</v-toolbar-title>
+                <v-toolbar-title>
+                    <router-link to="/" tag="span" style="cursor: pointer">Podlasie extra  </router-link>
+                </v-toolbar-title>
 
                 <v-spacer></v-spacer>
+           <v-btn v-for="item in menuItems"
+                        :key="item.title"
+                        router
+                        :to="item.link"
+                        nav
+                        flat
+                >
+                    <v-list-item-group
 
-                <v-btn icon>
-                    <v-icon>mdi-bell</v-icon>
+
+                    >
+                        <v-list-item>
+                            <v-list-item-title>
+                                {{item.title}}
+
+
+                            </v-list-item-title>
+                        </v-list-item>
+
+
+                    </v-list-item-group>
                 </v-btn>
+
+
 
 
                 <v-btn icon>
@@ -38,13 +60,17 @@
                     bottom
                     temporary
             >
-                <v-list v-for="item in menuItems" :key="item.title"
+                <v-btn
+                        v-for="item in menuItems"
+                        :key="item.title"
+                        router
+                        :to="item.link"
                         nav
-                        dense
+                        flat
                 >
                     <v-list-item-group
-                            v-model="group"
-                            active-class="deep-purple--text text--accent-4"
+
+
                     >
                         <v-list-item>
                             <v-list-item-title>
@@ -52,20 +78,20 @@
 
 
                             </v-list-item-title>
+
                         </v-list-item>
 
 
                     </v-list-item-group>
-                </v-list>
+                </v-btn>
             </v-navigation-drawer>
 
-            <v-card-text>
-                The navigation drawer will appear from the bottom on smaller size screens.
-            </v-card-text>
+            <router-view></router-view>
+
         </v-container>
-      <msin>
-        <router-view></router-view>
-      </msin>
+
+
+
     </v-app>
 </template>
 
@@ -78,11 +104,11 @@
             return {
                 drawer: false,
                 menuItems: [
-                    {icon: 'midi-bell', title: 'View events'},
-                    {icon: 'room', title: 'organize event'},
-                    {icon: 'person', title: 'profile'},
-                    {icon: 'face', title: 'sign in'},
-                    {icon: 'lock', title: 'sign out'}
+                    {icon: 'midi-bell', title: 'View events',link:'/events'},
+                    {icon: 'room', title: 'organize event', link:'/createevent'},
+                    {icon: 'person', title: 'profile', link:'/profile'},
+                    {icon: 'face', title: 'sign in',link:'/signin'},
+                    {icon: 'lock', title: 'sign up',link:'/signup'}
                 ],
             }
         }

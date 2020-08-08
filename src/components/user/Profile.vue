@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{name}}
+      Profile
     </div>
 </template>
 
