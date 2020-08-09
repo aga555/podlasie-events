@@ -33,7 +33,7 @@ export const routers = [
 
 
     {
-        path: '/createEvent',
+        path: '/event/new',
         name: 'createEvent',
         component: CreateEvent
     },
