@@ -18,6 +18,7 @@
                             :src="event.src"
                             reverse-transition="fade-transition"
                             transition="fade-transition"
+                            @click="onLoadEvent(event.id)"
                     >
                         <div class="title">
                             {{event.title}}
@@ -67,7 +68,11 @@
 
                 ],
             }
-        },
+        },methods:{
+            onLoadEvent (id){
+                this.$router.push('/events/'+id)
+            }
+        }
     }
 </script>
 
