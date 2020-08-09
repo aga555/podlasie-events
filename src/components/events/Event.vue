@@ -4,27 +4,26 @@
             <v-flex xs-12>
                 <v-card>
                     <v-card-title>
-                        <h6 class="primary--text"> Moje wydarzenie </h6>
+                        <h6 class="primary--text">{{event.title}} </h6>
 
                     </v-card-title>
                     <v-img
-                            src="https://cdn.vuetifyjs.com/images/cards/mountain.jpg"
+                            :src="event.src"
                             height="400"
                     >
 
                     </v-img>
                 </v-card>
                 <v-card-text>
-                    <div> 17.07.2020</div>
+                    <div> {{event.date}}</div>
                     <div>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem dolor, ea eius excepturi,
-                        explicabo
-                        incidunt itaque maiores minima minus mollitia necessitatibus nostrum voluptate voluptatibus.
-                        Deserunt ex optio quibusdam saepe tenetur.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias assumenda at, doloremque est
+                        exercitationem ipsum itaque laudantium non nostrum officiis praesentium quas quos recusandae
+                        reprehenderit tempore vel veritatis. Eum, exercitationem?
                     </div>
                 </v-card-text>
                 <v-card-actions>
-                    <v-btn dark> weź udział </v-btn>
+                    <v-btn dark> weź udział</v-btn>
 
                 </v-card-actions>
             </v-flex>
@@ -34,7 +33,13 @@
 
 <script>
     export default {
-        name: "Event"
+        props: ['id'],
+        name: "Event",
+        computed: {
+            event() {
+                return this.$store.getters.loadedEvent(this.id)
+            }
+        }
     }
 </script>
 

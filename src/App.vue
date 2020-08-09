@@ -20,7 +20,7 @@
                         router
                         :to="item.link"
                         nav
-                        flat
+
                 >
                     <v-list-item-group
 
@@ -66,7 +66,6 @@
                         router
                         :to="item.link"
                         nav
-                        flat
                 >
                     <v-list-item-group
 

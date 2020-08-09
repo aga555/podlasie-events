@@ -40,6 +40,7 @@ export const routers = [
     {
         path: '/events/:id',
         name: 'event',
+        props:true,
         component: Event
     }
     ,

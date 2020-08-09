@@ -43,34 +43,15 @@
         name: "Home",
         data() {
             return {
-                events: [
-                    {
-                        src: 'https://i0.wp.com/zyciewpodrozy.pl/wp-content/uploads/2018/10/Park-Pa%C5%82acowy-Bia%C5%82owie%C5%BCa.jpg?resize=1170%2C658&ssl=1',
-                        id: '111',
-                        title: 'Białowieża'
-                    },
-                    {
-                        src: 'https://zaciszezieloneogrody.pl/wp-content/uploads/2020/02/Podlasie-atrakcje.jpeg',
-                        id: '12',
-                        title: 'Narew'
-                    },
-                    {
-                        src: 'https://magazynvip.pl/wp-content/uploads/2016/12/Gmina-Narewka-5.jpg',
-                        id: '12',
-                        title: 'Spływ kajakowy'
-                    },
-                    {
-                        src: 'https://mtb-xc.pl/wp-content/uploads/2015/08/maratony-kresowe-narewka-2015-informacja-prasowa.jpg',
-                        id: '4',
-                        title: 'Maraton kresowy'
-                    },
-
-
-                ],
             }
         },methods:{
             onLoadEvent (id){
                 this.$router.push('/events/'+id)
+            }
+        },
+        computed:{
+            events(){
+                return this.$store.getters.featuredEvents
             }
         }
     }
