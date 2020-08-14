@@ -11,7 +11,7 @@
                        <v-card class="info" >
                            <v-flex xs5 sm4 md3>
                            <v-img
-                                   :src="event.src"
+                                   :src="event.imgUrl"
                                    height="134"
                            >
 

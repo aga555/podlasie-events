@@ -104,7 +104,7 @@
                 drawer: false,
                 menuItems: [
                     {icon: 'midi-bell', title: 'View events',link:'/events'},
-                    {icon: 'room', title: 'organize event', link:'/event/new'},
+                    {icon: 'room', title: 'utwórz wydarzenie', link:'/events/new'},
                     {icon: 'person', title: 'profile', link:'/profile'},
                     {icon: 'face', title: 'sign in',link:'/signin'},
                     {icon: 'lock', title: 'sign up',link:'/signup'}
