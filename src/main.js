@@ -12,7 +12,7 @@ import {store} from "@/store";
 Vue.config.productionTip = false
 
 Vue.use(VueRouter);
-Vue.use(Vuetify)
+Vue.use(Vuetify);
 
 const router = new VueRouter({
 

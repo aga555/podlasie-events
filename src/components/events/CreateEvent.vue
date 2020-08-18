@@ -67,6 +67,23 @@
                         </v-flex>
                     </v-layout>
                     <v-layout row>
+                        <v-flex xs12 sm6 offset3>
+
+                            <v-date-picker v-model="date">
+
+                            </v-date-picker>
+
+
+
+                                             </v-flex>
+                        <p style="color: deeppink">
+
+
+                    {{date}}
+                    </p>
+                    </v-layout>
+
+                    <v-layout row>
                         <v-flex xs12 sm6 offset-sm3>
                             <v-btn
                                     class="primary"
@@ -75,6 +92,7 @@
                             >
                                 utwórz wydarzenie
                             </v-btn>
+
                         </v-flex>
                     </v-layout>
                 </form>
@@ -92,24 +110,30 @@
                 description: '',
                 imgUrl: '',
                 location: '',
+                date: "",
+                id:""
+
 
             }
         },
         methods: {
             onCreateEvent() {
 
-                if (!this.formIsValid){
-                    return }
+                if (!this.formIsValid) {
+                    return
+                }
                 const eventsData = {
                     title: this.title,
                     description: this.description,
                     imgUrl: this.imgUrl,
                     location: this.location,
-                    date: new Date(),
-                }
+                    date: this.date,
+
+
+                };
 
                 alert('utowrozno wydarenie');
-                this.$store.dispatch('createEvent',eventsData);
+                this.$store.dispatch('createEvent', eventsData);
                 this.$router.push('/events');
 
             }
@@ -120,7 +144,23 @@
                     this.location !== '' &&
                     this.imgUrl !== '' &&
                     this.description !== ''
+            },
+      /*      submittableDateTime (){
+                const date = new Date(this.date);
+            if (typeof this.time==="string"){
+                const hours= this.time.match(/^ (\d+)/);
+                const minutes= this.time.match(/:(\d+)/);
+                date.setHours(hours);
+                date.setMinutes(minutes)
+            }else {
+                date.setHours(this.time.getHours());
+                date.setMinutes(this.time.getMinutes());
+                console.log(date);
             }
+
+            return date
+            }/!**!/*/
+
         }
 
     }

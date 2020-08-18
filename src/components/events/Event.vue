@@ -8,7 +8,7 @@
 
                     </v-card-title>
                     <v-img
-                            :src="event.src"
+                            :src="event.imgUrl"
                             height="400"
                     >
 

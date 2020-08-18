@@ -49,8 +49,8 @@ export const store = new Vuex.Store({
                     imgUrl:payload.imgUrl,
                     location: payload.location,
                     date:payload.date,
-
-                }
+                    id:'122'
+                };
                 commit('createEvent',event)
 }
         },
