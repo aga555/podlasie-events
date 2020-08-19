@@ -1,13 +1,98 @@
 <template>
     <div>
-        The signup page
-        {{name}}
+        <v-container>
+            <v-layout>
+                <v-flex xs-12 sm-6 offset-sm-3>
+                    <v-card>
+                        <v-card-text>
+                            <v-container>
+                                <form>
+                                    <v-layout row>
+                                        <v-flex xs12>
+                                            <v-text-field
+                                                    name="email"
+                                                    label="mail"
+                                                    id="email"
+                                                    v-model="email"
+                                                    type="email"
+                                                    aria-required="true">
+
+                                            </v-text-field>
+                                        </v-flex>
+                                    </v-layout>
+                                    <v-layout row>
+                                        <v-flex xs12>
+                                            <v-text-field
+                                                    name="password"
+                                                    label="hasło"
+                                                    id="password"
+                                                    v-model="password"
+                                                    type="password"
+                                                    aria-required="true">
+
+                                            </v-text-field>
+                                        </v-flex>
+                                    </v-layout>
+                                    <v-layout row>
+                                        <v-flex xs12>
+                                            <v-text-field
+                                                    name="conrfirmPassword"
+                                                    label="potwierdź hasło"
+                                                    id="confirmPassword"
+                                                    v-model="confirmPassword"
+                                                    type="password"
+                                                    :rules="[comparePassword]"
+                                            >
+
+                                            </v-text-field>
+                                        </v-flex>
+                                    </v-layout>
+                                    <v-layout row>
+                                        <v-flex xs-12>
+                                            <v-btn type="submit">
+                                                Zarejestruj
+
+                                            </v-btn>
+                                        </v-flex>
+
+                                    </v-layout>
+                                </form>
+                            </v-container>
+                        </v-card-text>
+                    </v-card>
+                </v-flex>
+            </v-layout>
+        </v-container>
     </div>
 </template>
 
 <script>
     export default {
-        name: "Signup"
+        name: "Signup",
+        data() {
+            return {
+                email: '',
+                password: '',
+                confirmPassword: '',
+
+            }
+        },
+        computed:{
+            comparePassword(){
+                return this.password !==this.confirmPassword ? 'Podane hasła nie sa identyczne' :''
+            }
+        },
+        methods: {
+            onSignup() {
+                console.log({
+                        email: this.email,
+                        password: this.password,
+                        confirmPassword: this.confirmPassword
+                    }
+                )
+            }
+
+        }
     }
 </script>
 
