@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import * as firebase from "firebase";
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -31,14 +32,14 @@ export const store = new Vuex.Store({
                     date: '2020-08-20'
                 },
             ],
-            user: {
-                id: '111',
-                registredEvents: ['aa']
-            }
-        },
+            user: null
+        } ,
         mutations: {
             createEvent(state,payload){
                 state.loadedEvents.push(payload)
+            },
+            setUser (state,payload){
+                state.user = payload
             }
         },
         actions: {
@@ -51,8 +52,22 @@ export const store = new Vuex.Store({
                     date:payload.date,
                     id:'122'
                 };
-                commit('createEvent',event)
-}
+                commit('createEvent',event)},
+
+            signUserUp({commit}, payload){
+
+               firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+                   .then( user => {
+                            const newUser = {
+                                 id: user.uid,
+                                 registredEvents: []
+                }
+                commit('setUser', newUser)
+                   })
+                   .catch(error=>{
+                       console.log(error)
+               });
+            }
         },
         getters: {
             loadedEvents(state) {
@@ -65,12 +80,17 @@ export const store = new Vuex.Store({
                 return getters.loadedEvents.slice(0, 5)
             },
             loadedEvent(state) {
-                return (eventId) => {
-                    return state.loadedEvents.find((event) => {
-                        return event.id === eventId
-                    })
-                }
+                        return (eventId) => {
+                                return state.loadedEvents.find((event) => {
+                                         return event.id === eventId    })
+                                    }
+                                },
+
+            user(state) {
+                        return state.user
+                         }
+
             }
-        }
+
     }
 )

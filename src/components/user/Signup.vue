@@ -6,7 +6,7 @@
                     <v-card>
                         <v-card-text>
                             <v-container>
-                                <form>
+                                <form @submit.prevent="onSignup">
                                     <v-layout row>
                                         <v-flex xs12>
                                             <v-text-field
@@ -42,6 +42,7 @@
                                                     v-model="confirmPassword"
                                                     type="password"
                                                     :rules="[comparePassword]"
+
                                             >
 
                                             </v-text-field>
@@ -80,20 +81,29 @@
         computed:{
             comparePassword(){
                 return this.password !==this.confirmPassword ? 'Podane hasła nie sa identyczne' :''
+            },
+            user()  {
+                    return this.$store.getters.user
+            }
+        },
+        watch:{
+            user (value) {
+                if (value !== null && value !== undefined) {
+                    this.$router.push('/');
+                    console.log( value);
+                }
             }
         },
         methods: {
             onSignup() {
-                console.log({
-                        email: this.email,
-                        password: this.password,
-                        confirmPassword: this.confirmPassword
+
+                      this.$store.dispatch('signUserUp',{email:this.email, password:this.password})
                     }
-                )
+
             }
 
         }
-    }
+
 </script>
 
 <style scoped>
