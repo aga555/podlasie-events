@@ -102,13 +102,26 @@
         data() {
             return {
                 drawer: false,
-                menuItems: [
-                    {icon: 'midi-bell', title: 'View events',link:'/events'},
+
+            }
+        },
+        computed:{
+        menuItems (){
+                let menuItems = [
+                    {icon: 'face', title: 'zaloguj',link:'/signin'},
+                    {icon: 'lock', title: 'zarejestruj',link:'/signup'}
+                ]
+            if (this.userIsAutehenticated) {
+                menuItems = [
+                    {icon: 'midi-bell', title: 'zobacz wydarzenia',link:'/events'},
                     {icon: 'room', title: 'utwórz wydarzenie', link:'/events/new'},
-                    {icon: 'person', title: 'profile', link:'/profile'},
-                    {icon: 'face', title: 'sign in',link:'/signin'},
-                    {icon: 'lock', title: 'sign up',link:'/signup'}
-                ],
+                    {icon: 'person', title: 'mój profil', link:'/profile'}
+                    ]
+            }
+            return menuItems
+            },
+            userIsAutehenticated (){
+            return this.$store.getters.user !== null && this.$store.getters.user !== undefined
             }
         }
     }
