@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import * as firebase from "firebase";
+
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -33,41 +34,56 @@ export const store = new Vuex.Store({
                 },
             ],
             user: null
-        } ,
+        },
         mutations: {
-            createEvent(state,payload){
+            createEvent(state, payload) {
                 state.loadedEvents.push(payload)
             },
-            setUser (state,payload){
+            setUser(state, payload) {
                 state.user = payload
             }
         },
         actions: {
-            createEvent ({commit},payload) {
+            createEvent({commit}, payload) {
                 const event = {
                     title: payload.title,
-                    description:payload.description,
-                    imgUrl:payload.imgUrl,
+                    description: payload.description,
+                    imgUrl: payload.imgUrl,
                     location: payload.location,
-                    date:payload.date,
-                    id:'122'
+                    date: payload.date,
+                    id: '122'
                 };
-                commit('createEvent',event)},
+                commit('createEvent', event)
+            },
 
-            signUserUp({commit}, payload){
+            signUserUp({commit}, payload) {
 
-               firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
-                   .then( user => {
-                            const newUser = {
-                                 id: user.uid,
-                                 registredEvents: []
-                }
-                commit('setUser', newUser)
-                   })
-                   .catch(error=>{
-                       console.log(error)
-               });
+                firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+                    .then(user => {
+                        const newUser = {
+                            id: user.uid,
+                            registredEvents: []
+                        }
+                        commit('setUser', newUser)
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    });
+            },
+            signUserIn({commit}, payload) {
+                firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+                    .then(user => {
+                        const newUserLogin = {
+                            id: user.uid,
+                            registredEvents: []
+                        };
+                        commit('setUser', newUserLogin)
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    });
             }
+
         },
         getters: {
             loadedEvents(state) {
@@ -80,17 +96,18 @@ export const store = new Vuex.Store({
                 return getters.loadedEvents.slice(0, 5)
             },
             loadedEvent(state) {
-                        return (eventId) => {
-                                return state.loadedEvents.find((event) => {
-                                         return event.id === eventId    })
-                                    }
-                                },
+                return (eventId) => {
+                    return state.loadedEvents.find((event) => {
+                        return event.id === eventId
+                    })
+                }
+            },
 
             user(state) {
-                        return state.user
-                         }
-
+                return state.user
             }
+
+        }
 
     }
 )
