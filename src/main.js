@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
-
+import Alert from './components/shared/alert'
 import vuetify from './plugins/vuetify';
 import VueRouter from "vue-router";
 import {routers} from "@/router";
@@ -13,7 +13,7 @@ Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
 Vue.use(Vuetify);
-
+Vue.component('app-alert',Alert)
 const router = new VueRouter({
 
   routes: routers,
