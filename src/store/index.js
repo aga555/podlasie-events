@@ -63,9 +63,18 @@ export const store = new Vuex.Store({
                     imgUrl: payload.imgUrl,
                     location: payload.location,
                     date: payload.date,
-                    id: '122'
-                };
-                commit('createEvent', event)
+
+                }
+                firebase.database().ref('events').push(event)
+                    .then((data) => {
+                        console.log(data)
+                        commit('createEvent', event)
+                    })
+                    .catch((error) => {
+                    console.log(error)
+                })
+
+
             },
 
             signUserUp({commit}, payload) {
