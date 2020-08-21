@@ -9,13 +9,24 @@
                 </v-btn>
             </v-flex>
         </v-layout>
-        <v-layout row wrap>
+        <v-layout>
+            <v-flex xs12 class="text-xs-center">
+                <v-progress-circular
+                        indeterminate
+                        color="primary--text"
+                        :width="7"
+                        :size="70"
+                        v-if="loading"
+                ></v-progress-circular>
+            </v-flex>
+        </v-layout>
+        <v-layout row wrap  v-if="!loading">
             <v-flex xs-2>
                 <v-carousel>
                     <v-carousel-item
                             v-for="event in events"
                             :key="event.id"
-                            :src="event.src"
+                            :src="event.imgUrl"
                             reverse-transition="fade-transition"
                             transition="fade-transition"
                             @click="onLoadEvent(event.id)"
@@ -52,6 +63,9 @@
         computed:{
             events(){
                 return this.$store.getters.featuredEvents
+            },
+            loading(){
+                return this.$store.getters.loading
             }
         }
     }

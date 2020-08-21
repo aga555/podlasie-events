@@ -8,7 +8,9 @@ import VueRouter from "vue-router";
 import {routers} from "@/router";
 import Vuetify from "vuetify";
 import {store} from "@/store";
-import * as firebase from 'firebase';
+
+import * as firebase from 'firebase/app';
+
 Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
@@ -33,5 +35,6 @@ new Vue({
     projectId: 'podlasie-b1f30',
     storageBucket: 'podlasie-b1f30.appspot.com',
 })
+        this.$store.dispatch('loadEvents')
     }
 }).$mount('#app')

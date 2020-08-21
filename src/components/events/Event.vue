@@ -17,9 +17,7 @@
                 <v-card-text>
                     <div> {{event.date}}</div>
                     <div>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias assumenda at, doloremque est
-                        exercitationem ipsum itaque laudantium non nostrum officiis praesentium quas quos recusandae
-                        reprehenderit tempore vel veritatis. Eum, exercitationem?
+               {{event.description}}
                     </div>
                 </v-card-text>
                 <v-card-actions>

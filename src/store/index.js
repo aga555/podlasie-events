@@ -8,30 +8,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
         state: {
             loadedEvents: [
-                {
-                    imgUrl: 'https://i0.wp.com/zyciewpodrozy.pl/wp-content/uploads/2018/10/Park-Pa%C5%82acowy-Bia%C5%82owie%C5%BCa.jpg?resize=1170%2C658&ssl=1',
-                    id: '1',
-                    title: 'Białowieża',
-                    date: '2020-08-08'
-                },
-                {
-                    imgUrl: 'https://zaciszezieloneogrody.pl/wp-content/uploads/2020/02/Podlasie-atrakcje.jpeg',
-                    id: '2',
-                    title: 'Narew',
-                    date: '2020-08-09'
-                },
-                {
-                    imgUrl: 'https://magazynvip.pl/wp-content/uploads/2016/12/Gmina-Narewka-5.jpg',
-                    id: '3',
-                    title: 'Spływ kajakowy',
-                    date: '2020-08-11'
-                },
-                {
-                    imgUrl: 'https://mtb-xc.pl/wp-content/uploads/2015/08/maratony-kresowe-narewka-2015-informacja-prasowa.jpg',
-                    id: '4',
-                    title: 'Maraton kresowy',
-                    date: '2020-08-20'
-                },
+
             ],
             user: null,
             loading: false,
@@ -53,9 +30,39 @@ export const store = new Vuex.Store({
             },
             clearError(state) {
                 state.error = null
+            },
+            setLoadedEvents(state, payload ){
+                state.loadedEvents = payload
+                console.log(payload)
+
             }
         },
         actions: {
+            loadEvents({commit}){
+             commit('setLoading', true);
+                firebase.database().ref('events').once('value')
+                            .then((data)=>{
+                                    const events = []
+                                    const obj = data.val()
+                                     for (let key in obj){
+                                      events.push({
+                                          id:key,
+                                          title:obj[key].title,
+                                          description:obj[key].description,
+                                          location:obj[key].location,
+                                          imgUrl:obj[key].imgUrl,
+                                          date:obj[key].date,
+                                      })
+                                        }
+                                        commit('setLoadedEvents',events)
+                                        commit('setLoading', false);
+/*console.log(events)*/
+                            })
+                        .catch((error)=>{
+                             console.log(error)
+                            commit('setLoading', false);
+                            })
+            },
             createEvent({commit}, payload) {
                 const event = {
                     title: payload.title,
@@ -67,8 +74,12 @@ export const store = new Vuex.Store({
                 }
                 firebase.database().ref('events').push(event)
                     .then((data) => {
-                        console.log(data)
-                        commit('createEvent', event)
+                        const key = data.key
+                        commit('createEvent',
+                            {
+                                ...event,
+                                id: key
+                            })
                     })
                     .catch((error) => {
                     console.log(error)
@@ -120,13 +131,13 @@ export const store = new Vuex.Store({
         },
         getters: {
             loadedEvents(state) {
-                return state.loadedEvents.sort((eventA, eventB) => {
-                    return eventA.date > eventB.date
-                })
-            },
+                return state.loadedEvents.sort(function(a,b) {
+                return new Date(b.date) - new Date(a.date);
+                          })
+                },
 
             featuredEvents(state, getters) {
-                return getters.loadedEvents.slice(0, 5)
+                return getters.loadedEvents.slice(0,3)
             },
             loadedEvent(state) {
                 return (eventId) => {
@@ -137,6 +148,7 @@ export const store = new Vuex.Store({
             },
 
             user(state) {
+
                 return state.user
             },
             loading(state) {
