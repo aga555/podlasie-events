@@ -9,12 +9,14 @@ import {routers} from "@/router";
 import Vuetify from "vuetify";
 import {store} from "@/store";
 import * as firebase from 'firebase/app';
+import EditDialog from "@/components/events/edit/EditDialog";
 
 Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
 Vue.use(Vuetify);
-Vue.component('app-alert',Alert)
+Vue.component('app-alert',Alert);
+Vue.component('app-edit',EditDialog)
 const router = new VueRouter({
 
   routes: routers,
