@@ -7,9 +7,7 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
         state: {
-            loadedEvents: [
-
-            ],
+            loadedEvents: [],
             user: null,
             loading: false,
             error: null
@@ -31,45 +29,49 @@ export const store = new Vuex.Store({
             clearError(state) {
                 state.error = null
             },
-            setLoadedEvents(state, payload ){
-                state.loadedEvents = payload
-                console.log(payload)
+            setLoadedEvents(state, payload) {
+
+               state.loadedEvents = payload
+
 
             }
         },
         actions: {
-            loadEvents({commit}){
-             commit('setLoading', true);
+            loadEvents({commit}) {
+                commit('setLoading', true);
                 firebase.database().ref('events').once('value')
-                            .then((data)=>{
-                                    const events = []
-                                    const obj = data.val()
-                                     for (let key in obj){
-                                      events.push({
-                                          id:key,
-                                          title:obj[key].title,
-                                          description:obj[key].description,
-                                          location:obj[key].location,
-                                          imgUrl:obj[key].imgUrl,
-                                          date:obj[key].date,
-                                      })
-                                        }
-                                        commit('setLoadedEvents',events)
-                                        commit('setLoading', false);
-/*console.log(events)*/
+                    .then((data) => {
+                        const events = []
+                        const obj = data.val()
+                        for (let key in obj) {
+                            events.push({
+                                id: key,
+                                title: obj[key].title,
+                                description: obj[key].description,
+                                location: obj[key].location,
+                                imgUrl: obj[key].imgUrl,
+                                date: obj[key].date,
+                                creatorId: obj[key].creatorId
                             })
-                        .catch((error)=>{
-                             console.log(error)
-                            commit('setLoading', false);
-                            })
+                        }
+                        console.log(events)
+                        commit('setLoadedEvents', events)
+                        commit('setLoading', false);
+
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                        commit('setLoading', false);
+                    })
             },
-            createEvent({commit}, payload) {
+            createEvent({commit,getters}, payload) {
                 const event = {
                     title: payload.title,
                     description: payload.description,
                     imgUrl: payload.imgUrl,
                     location: payload.location,
                     date: payload.date,
+                    creatorId: getters.user.id
 
                 }
                 firebase.database().ref('events').push(event)
@@ -82,8 +84,8 @@ export const store = new Vuex.Store({
                             })
                     })
                     .catch((error) => {
-                    console.log(error)
-                })
+                        console.log(error)
+                    })
 
 
             },
@@ -124,6 +126,13 @@ export const store = new Vuex.Store({
                         console.log(error)
                     });
             },
+            autoSignIn({commit}, payload) {
+                commit('setUser', {id: payload.uid, registredEvents:[]})
+            },
+            logout({commit}){
+                firebase.auth().signOut()
+                commit('setUser',null)
+            },
             clearError({commit}) {
                 commit('clearError')
             }
@@ -131,13 +140,13 @@ export const store = new Vuex.Store({
         },
         getters: {
             loadedEvents(state) {
-                return state.loadedEvents.sort(function(a,b) {
-                return new Date(b.date) - new Date(a.date);
-                          })
-                },
+                return state.loadedEvents.sort(function (a, b) {
+                    return new Date(b.date) - new Date(a.date);
+                })
+            },
 
             featuredEvents(state, getters) {
-                return getters.loadedEvents.slice(0,3)
+                return getters.loadedEvents.slice(0, 3)
             },
             loadedEvent(state) {
                 return (eventId) => {

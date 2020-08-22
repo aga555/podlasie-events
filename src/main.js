@@ -8,7 +8,6 @@ import VueRouter from "vue-router";
 import {routers} from "@/router";
 import Vuetify from "vuetify";
 import {store} from "@/store";
-
 import * as firebase from 'firebase/app';
 
 Vue.config.productionTip = false;
@@ -35,6 +34,11 @@ new Vue({
     projectId: 'podlasie-b1f30',
     storageBucket: 'podlasie-b1f30.appspot.com',
 })
+        firebase.auth().onAuthStateChanged((user) => {
+            if(user){
+                this.$store.dispatch('autoSignIn',user)
+            }
+            })
         this.$store.dispatch('loadEvents')
     }
 }).$mount('#app')

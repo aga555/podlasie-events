@@ -25,7 +25,7 @@
                                </div>
                            </v-card-title>
                            <v-card-actions >
-                               <v-btn flat
+                               <v-btn
                                       :to="'/events/' + event.id"
                                        color="orange"
                                        text

@@ -5,7 +5,7 @@
                 <v-btn large router to="/events" class="primary"> Zobacz wydarzenia</v-btn>
             </v-flex>
             <v-flex xs-12 sm6 class=" text-xs-center text-sm-left">
-                <v-btn large router to="/event/new" class="primary"> utwórz wydarzenie
+                <v-btn large router to="/events/new" class="primary"> utwórz wydarzenie
                 </v-btn>
             </v-flex>
         </v-layout>

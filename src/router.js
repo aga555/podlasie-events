@@ -5,7 +5,7 @@ import CreateEvent from "@/components/events/CreateEvent";
 import Profile from "@/components/user/Profile";
 import Event from "@/components/events/Event";
 import Signin from "@/components/user/Signin";
-
+import AuthGuard from './auth-guard'
 
 
 export const routers = [
@@ -34,23 +34,23 @@ export const routers = [
     {
         path: '/events/new',
         name: 'createEvent',
-        component: CreateEvent
+        component: CreateEvent,
+        beforeEnter: AuthGuard
+    },
+    {
+        path: '/profile',
+        name: 'profile',
+        component: Profile,
+        beforeEnter: AuthGuard
     },
 
     {
         path: '/events/:id',
         name: 'event',
-        props:true,
+        props: true,
         component: Event
     }
-    ,
 
-
-    {
-        path: '/profile',
-        name: 'profile',
-        component: Profile
-    },
 ]
 
 
