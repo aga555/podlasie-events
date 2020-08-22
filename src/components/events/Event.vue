@@ -18,9 +18,7 @@
                     <v-card-title>
                         <h6 class="primary--text">{{event.title}} </h6>
 
-
                         <app-edit :event="event" v-if="userIsCreator=== true"></app-edit>
-
 
                     </v-card-title>
 

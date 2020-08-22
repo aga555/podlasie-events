@@ -46,6 +46,14 @@
 
                                 </v-text-field>
                             </v-flex>
+                            <v-flex xs12 sm12>
+
+                                <v-date-picker
+                        v-model="editDate"
+
+                                ></v-date-picker>
+
+                            </v-flex>
                         </v-card-text>
 
 
@@ -70,19 +78,21 @@
             return {
                 dialog: false,
                 editTitle: this.event.title,
-                editDescription: this.event.description
+                editDescription: this.event.description,
+                editDate:this.event.date,
             }
 
         }, methods: {
             onSaveChanges() {
-                if (this.editTitle.trim() === '' || this.editDescription === '') {
+                if (this.editTitle === '' || this.editDescription === '') {
                     return
                 }
                 this.dialog = false
                 this.$store.dispatch('updateEventData', {
                     id: this.event.id,
                     title: this.editTitle,
-                    description: this.editDescription
+                    description: this.editDescription,
+                    date: this.editDate
                 })
             }
         }
