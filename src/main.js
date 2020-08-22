@@ -32,7 +32,7 @@ new Vue({
     authDomain: 'podlasie-b1f30.firebaseapp.com',
     databaseURL: 'https://podlasie-b1f30.firebaseio.com',
     projectId: 'podlasie-b1f30',
-    storageBucket: 'podlasie-b1f30.appspot.com',
+    storageBucket: 'gs://podlasie-b1f30.appspot.com',
 })
         firebase.auth().onAuthStateChanged((user) => {
             if(user){

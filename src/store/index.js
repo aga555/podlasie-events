@@ -49,7 +49,7 @@ export const store = new Vuex.Store({
                                 title: obj[key].title,
                                 description: obj[key].description,
                                 location: obj[key].location,
-                                imgUrl: obj[key].imgUrl,
+                                imgUrl: obj[key].imageUrl,
                                 date: obj[key].date,
                                 creatorId: obj[key].creatorId
                             })
@@ -64,29 +64,48 @@ export const store = new Vuex.Store({
                         commit('setLoading', false);
                     })
             },
-            createEvent({commit,getters}, payload) {
+            createEvent ({commit,getters}, payload) {
                 const event = {
                     title: payload.title,
                     description: payload.description,
-                    imgUrl: payload.imgUrl,
                     location: payload.location,
                     date: payload.date,
                     creatorId: getters.user.id
 
-                }
+                };
+
+                let storageRef;
+                let uploadTask;
+                let key;
                 firebase.database().ref('events').push(event)
                     .then((data) => {
-                        const key = data.key
-                        commit('createEvent',
-                            {
-                                ...event,
-                                id: key
-                            })
+                        key = data.key
+                        return key
                     })
-                    .catch((error) => {
-                        console.log(error)
+                    .then(key => {
+                        const filename = payload.image.name
+                        const ext = filename.slice(filename.lastIndexOf('.'))
+                        storageRef = firebase.storage().ref();
+                        uploadTask = storageRef.child('events/' + key + ext).put(payload.image)
+                        return uploadTask
                     })
+                    .then((uploadTask) => {
+                        // Upload completed successfully, now we can get the download URL
+                        uploadTask.ref.getDownloadURL().then((downloadURL) => {
+                            firebase.database().ref('events').child(key).update({imageUrl: downloadURL})
+                                .then(() => {
+                                    commit('createEvent', {
+                                        ... event,
+                                        imageUrl: downloadURL,
+                                        id: key
+                                    })
+                                })
+                                .catch((error) => {
+                                    console.log(error)
+                                })
 
+                        })
+                    })
 
             },
 

@@ -38,14 +38,14 @@
 
                     <v-layout>
                         <v-flex xs12 sm6 offset-sm3>
-                            <v-text-field color="red"
-                                          name="imagerUrl"
-                                          label="url"
-                                          id="imag-url"
-                                          required
-                                          v-model="imgUrl">
+                            <input
+                                    type="file"
+                                    style="display: none"
+                                    ref="fileInput"
+                                    accept="image/*"
+                                   @change="onFilePicked">
+                            <v-btn @click="onPickFile"> zdjecie</v-btn>
 
-                            </v-text-field>
                         </v-flex>
                     </v-layout>
                     <v-layout>
@@ -68,19 +68,16 @@
                     </v-layout>
                     <v-layout row>
                         <v-flex xs12 sm6 offset3>
-
                             <v-date-picker v-model="date">
-
                             </v-date-picker>
 
 
-
-                                             </v-flex>
+                        </v-flex>
                         <p style="color: deeppink">
 
 
-                    {{date}}
-                    </p>
+                            {{date}}
+                        </p>
                     </v-layout>
 
                     <v-layout row>
@@ -111,21 +108,41 @@
                 imgUrl: '',
                 location: '',
                 date: "",
-                id:""
+                id: "",
+                image:null
 
 
             }
         },
         methods: {
+            onFilePicked (event) {
+                const files = event.target.files;
+                let filename = files[0].name;
+                if (filename.lastIndexOf('.') <= 0) {
+                    return alert(' prosze wybrac prawidlowy format ')
+                }
+                const fileReader = new FileReader();
+                fileReader.addEventListener('load', () => {
+                    this.imgUrl = fileReader.result
+                })
+                fileReader.readAsDataURL(files[0]);
+                this.image = files[0]
+            },
+            onPickFile () {
+                this.$refs.fileInput.click()
+            },
             onCreateEvent() {
 
                 if (!this.formIsValid) {
                     return
                 }
+                if (!this.image){
+                    return;
+                }
                 const eventsData = {
                     title: this.title,
                     description: this.description,
-                    imgUrl: this.imgUrl,
+                    image: this.image,
                     location: this.location,
                     date: this.date,
 
@@ -145,21 +162,21 @@
                     this.imgUrl !== '' &&
                     this.description !== ''
             },
-      /*      submittableDateTime (){
-                const date = new Date(this.date);
-            if (typeof this.time==="string"){
-                const hours= this.time.match(/^ (\d+)/);
-                const minutes= this.time.match(/:(\d+)/);
-                date.setHours(hours);
-                date.setMinutes(minutes)
-            }else {
-                date.setHours(this.time.getHours());
-                date.setMinutes(this.time.getMinutes());
-                console.log(date);
-            }
+            /*      submittableDateTime (){
+                      const date = new Date(this.date);
+                  if (typeof this.time==="string"){
+                      const hours= this.time.match(/^ (\d+)/);
+                      const minutes= this.time.match(/:(\d+)/);
+                      date.setHours(hours);
+                      date.setMinutes(minutes)
+                  }else {
+                      date.setHours(this.time.getHours());
+                      date.setMinutes(this.time.getMinutes());
+                      console.log(date);
+                  }
 
-            return date
-            }/!**!/*/
+                  return date
+                  }/!**!/*/
 
         }
 
