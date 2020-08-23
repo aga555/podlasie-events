@@ -39,7 +39,7 @@
 
                 <v-card-actions>
                  <app-register
-                 :eventId="event.id"></app-register>
+                 :eventId="event.id" v-if="userIsAutehenticated "></app-register>
 
                 </v-card-actions>
             </v-flex>

@@ -140,7 +140,7 @@ export const store = new Vuex.Store({
                                 creatorId: obj[key].creatorId
                             })
                         }
-                        console.log(events)
+
                         commit('setLoadedEvents', events)
                         commit('setLoading', false);
 
@@ -227,7 +227,7 @@ export const store = new Vuex.Store({
                         const newUser = {
                             id: user.uid,
                             registeredEvents: [],
-                            fbKeys:{}
+                            fbKeys: {}
                         }
                         commit('setUser', newUser)
                     })
@@ -260,7 +260,33 @@ export const store = new Vuex.Store({
                 commit('setUser', {
                     id: payload.uid,
                     registeredEvents: [],
-                    fbKeys: {}})
+                    fbKeys: {}
+                })
+            },
+            fetchUserData({commit, getters}) {
+                commit('setLoading', true);
+                firebase.database().ref('/users/' + getters.user.id + '/registration/').once('value')
+                    .then(data => {
+                        const eventsPairs = data.val()
+                        let registeredEvents = []
+                        let swappedPairs = {}
+                        for (let key in eventsPairs) {
+                            registeredEvents.push(eventsPairs[key])
+                            swappedPairs[eventsPairs[key]] = key
+                        }
+                        const updatedUser = {
+                            id: getters.user.id,
+                            registeredEvents: registeredEvents,
+                            fbKeys: swappedPairs
+                        }
+                        commit('setLoading', false);
+                        commit('setUser', updatedUser);
+
+                    }).catch(error => {
+                    console.log(error)
+                    commit('setLoading', false)
+                })
+
             },
             logout({commit}) {
                 firebase.auth().signOut()
