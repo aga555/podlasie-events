@@ -38,7 +38,8 @@
                 </v-card-text>
 
                 <v-card-actions>
-                    <v-btn dark> weź udział</v-btn>
+                 <app-register
+                 :eventId="event.id"></app-register>
 
                 </v-card-actions>
             </v-flex>
