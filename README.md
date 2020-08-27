@@ -1,5 +1,7 @@
 # podlasie-extra
-
+The purpose of the application is to disseminate information about cultural events in the region.
+The application is designed to help users discover the wonderful Podlasie and show how various events take place here.
+The user can add an event, register, select locations.
 ## Project setup
 ```
 npm install
