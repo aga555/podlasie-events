@@ -8,7 +8,7 @@
                    <v-layout row>
 
                    <v-flex xs12 sm10 md8 offset-md2 v-for="event in events" :key="event.id" class="mb-3">
-                       <v-card class="info" >
+                       <v-card class="primary" >
                            <v-flex xs5 sm4 md3>
                            <v-img
                                    :src="event.imgUrl"

@@ -2,7 +2,7 @@
     <v-container>
         <v-layout row>
             <v-flex xs12>
-                <h2 class="red--text">Utwórz nowe wydarzenie</h2>
+                <h2 class="red--text" style="text-align: center">Utwórz nowe wydarzenie</h2>
             </v-flex>
         </v-layout>
         <v-layout>
@@ -38,6 +38,29 @@
 
                     <v-layout>
                         <v-flex xs12 sm6 offset-sm3>
+                            <v-text-field color="red"
+                                          name="description"
+                                          label="opis"
+                                          id="description"
+                                          multi-line
+                                          required
+                                          v-model="description">
+
+                            </v-text-field>
+                        </v-flex>
+                    </v-layout>
+                    <v-layout row>
+
+                        <v-date-picker v-model="date" style="margin: auto">
+                        </v-date-picker>
+
+
+
+                    </v-layout>
+
+
+                    <v-layout>
+                        <v-flex xs12 sm6 offset-sm3>
                             <input
                                     type="file"
                                     style="display: none"
@@ -53,32 +76,7 @@
                             <img :src="imgUrl" height="300px">
                         </v-flex>
                     </v-layout>
-                    <v-layout>
-                        <v-flex xs12 sm6 offset-sm3>
-                            <v-text-field color="red"
-                                          name="description"
-                                          label="opis"
-                                          id="description"
-                                          multi-line
-                                          required
-                                          v-model="description">
 
-                            </v-text-field>
-                        </v-flex>
-                    </v-layout>
-                    <v-layout row>
-                        <v-flex xs12 sm6 offset3>
-                            <v-date-picker v-model="date">
-                            </v-date-picker>
-
-
-                        </v-flex>
-                        <p style="color: deeppink">
-
-
-                            {{date}}
-                        </p>
-                    </v-layout>
 
                     <v-layout row>
                         <v-flex xs12 sm6 offset-sm3>

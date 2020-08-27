@@ -5,10 +5,12 @@ export default {
     state: {
         loadedEvents: [
             {
-                imgUrl: 'https://i0.wp.com/zyciewpodrozy.pl/wp-content/uploads/2018/10/Park-Pa%C5%82acowy-Bia%C5%82owie%C5%BCa.jpg?resize=1170%2C658&ssl=1',
+                imgUrl: 'https://kresy24.pl/wp-content/uploads/2017/07/Basowiszcza-6.jpg',
                 id: '1',
-                title: 'Białowieża',
-                date: '2020-08-08'
+                title: 'Basowiszcza',
+                date: '2020-08-08',
+                location:'Gródek',
+                description:'Festiwal muzyki wolnej Białorusi'
             },
             {
                 imgUrl: 'https://zaciszezieloneogrody.pl/wp-content/uploads/2020/02/Podlasie-atrakcje.jpeg',

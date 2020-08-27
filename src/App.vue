@@ -2,7 +2,7 @@
     <v-app>
         <v-container>
             <v-app-bar
-                    color="green"
+              class="primary"
                     dark
                     prominent
             >
@@ -116,7 +116,7 @@
                 ]
                 if (this.userIsAutehenticated) {
                     menuItems = [
-                        {icon: 'midi-bell', title: 'zobacz wydarzenia', link: 'events'},
+                        {icon: 'midi-bell', title: 'zobacz wydarzenia', link: '/events'},
                         {icon: 'room', title: 'utwórz wydarzenie', link: '/events/new'},
                         {icon: 'person', title: 'mój profil', link: '/profile'}
                     ]
