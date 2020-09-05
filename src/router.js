@@ -6,6 +6,7 @@ import Profile from "@/components/user/Profile";
 import Event from "@/components/events/Event";
 import Signin from "@/components/user/Signin";
 import AuthGuard from './auth-guard'
+import Map from "@/components/Map";
 
 
 export const routers = [
@@ -49,6 +50,11 @@ export const routers = [
         name: 'event',
         props: true,
         component: Event
+    },
+    {
+        path: '/map',
+        name: 'map',
+        component: Map
     }
 
 ]
